@@ -7,6 +7,7 @@
     <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm:"Do you wanna to delete post?"} ,:class => 'btn btn-warning'%>
   </div>
   <p style="margin: 0"><small>Created_at: <%=@post.created_at %></small></p>
+  <p style="margin: 0"><small>Updated_at: <%=@post.updated_at %></small></p>
 </div>
 <hr>
 <h2>Marks</h2>
