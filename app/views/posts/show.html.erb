@@ -1,0 +1,62 @@
+<h1> <%= @post.title %></h1>
+<p><%= @post.body %></p>
+<hr>
+<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center">
+  <div style="display: flex; justify-content: space-between; width: 140px">
+    <%= link_to "Edit", edit_post_path(@post), :class => 'btn btn-warning'%>
+    <%= link_to "Delete", post_path(@post), method: :delete, data: {confirm:"Do you wanna to delete post?"} ,:class => 'btn btn-warning'%>
+  </div>
+  <p style="margin: 0"><small>Created_at: <%=@post.created_at %></small></p>
+</div>
+<hr>
+<h2>Marks</h2>
+<% @post.marks.each do |mark| %>
+  <h2 style = "font-size: 18px"> Letter: <%= mark.letter %></h2>
+  <h3 style = "font-size: 18px">Score: <%= mark.score %></h3>
+<% end %>
+
+<%= form_for([@post, @post.marks.build]) do |f| %>
+  <% if @post.errors.any? %>
+    <% @post.errors.full_messages.each do |msg| %>
+      <div class="alert alert-danger"><%= msg %></div>
+    <% end %>
+  <% end %>
+
+  <p>
+  <h3>Score: <%= f.text_field :score, :class => 'form-control', :style => 'max-width: 72px' %></h3>
+  </p>
+  <p>
+    <%= f.submit :class => 'btn btn-success' %>
+  </p>
+
+<% end %>
+<hr>
+<h2>Comments</h2>
+<% @post.comments.each do |comment| %>
+  <div class="card">
+    <p class="card-title"><strong> <%= comment.username %>:</strong></p>
+    <p class="card-text"><%= comment.body %></p>
+    <hr>
+    <div>
+      <%= link_to "Delete comment", post_comment_path(@post,comment), method: :delete, data: {confirm:"Do you wanna to delete comment?"} ,:class => 'btn btn-outline-primary'%>
+    </div>
+  </div>
+  <br>
+<% end %>
+<hr>
+<h2>Add comment</h2>
+<%= form_for([@post, @post.comments.build]) do |f| %>
+  <p>
+    NikName<br>
+    <%= f.text_field(:username, {:class => 'form-control'}) %>
+  </p>
+
+  <p>
+    Text comment<br>
+    <%= f.text_area(:body, {:class => 'form-control'}) %>
+  </p>
+
+  <p>
+    <%= f.submit("Add comment",{:class => 'btn btn-warning'}) %>
+  </p>
+<% end %>

@@ -1,0 +1,11 @@
+<h1>All our post</h1>
+<% @post.each do |post| %>
+  <div class="card">
+    <h3 class="card-title"><%= post.title %></h3>
+    <p class="card-text"><%= post.body %></p>
+    <span href="#" class="card-link">
+      <%= link_to "Read all", post_path(post), :class => 'btn btn-outline-primary' %>
+    </span>
+  </div>
+  <br>
+<% end %>
